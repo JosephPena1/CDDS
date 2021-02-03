@@ -79,7 +79,9 @@ inline bool List<T>::contains(const T& object) const
 template<typename T>
 inline const void List<T>::pushFront(const T& value)
 {
-	if (m_first = NULL)
+	//if list doesn't exist, set first to new Node
+	//else add new Node to the list
+	if (m_first || m_last = NULL)
 	{
 		m_first = new Node<T>;
 		m_first->setData(info);
@@ -98,6 +100,22 @@ inline const void List<T>::pushFront(const T& value)
 template<typename T>
 inline void List<T>::pushBack(const T& value)
 {
+	//if list doesn't exist, set first to the new Node
+	//else add new Node to the list
+	if (m_first || m_last = NULL)
+	{
+		m_first = new Node<T>;
+		m_first->setData(info);
+		m_last = m_first;
+	}
+	else
+	{
+		Node<T>* temp = new Node<T>;
+		temp->setData(info);
+		temp->setNextNull();
+		m_last->setNext(temp);
+		m_last = m_last->getNext();
+	}
 }
 
 template<typename T>
@@ -112,6 +130,7 @@ inline bool List<T>::remove(const T& value)
 	return false;
 }
 
+//prints the contents of a linked list
 template<typename T>
 inline void List<T>::print() const
 {

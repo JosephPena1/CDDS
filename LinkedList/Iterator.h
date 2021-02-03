@@ -31,6 +31,9 @@ inline Iterator<T>::Iterator(Node<T>* node)
 	current = node;
 }
 
+//adds 2 iterator types?
+//adds an iterator and a Node?
+//adds an iterator and a ____?
 template<typename T>
 inline Iterator<T> Iterator<T>::operator++()
 {
