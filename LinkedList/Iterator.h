@@ -31,20 +31,17 @@ inline Iterator<T>::Iterator(Node<T>* node)
 	current = node;
 }
 
-//adds 2 iterator types?
-//adds an iterator and a Node?
-//adds an iterator and a ____?
 template<typename T>
 inline Iterator<T> Iterator<T>::operator++()
 {
-
+	current = current->next;
 	return Iterator<T>();
 }
 
 template<typename T>
 inline Iterator<T> Iterator<T>::operator--()
 {
-
+	current = current->previous;
 	return Iterator<T>();
 }
 
@@ -58,6 +55,8 @@ inline const bool Iterator<T>::operator==(const Iterator<T>& iter)
 template<typename T>
 inline const bool Iterator<T>::operator!=(const Iterator<T>& iter)
 {
+	if (current != iter)
+		return true;
 
 	return false;
 }

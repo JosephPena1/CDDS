@@ -7,7 +7,7 @@ class Node
 
 public:
 	Node<T>();
-	Node<T>(T value);
+	Node<T>(T value, Node* n = nullptr, Node* p = nullptr);
 	Node<T>* next;
 	Node<T>* previous;
 	T data;
@@ -16,11 +16,13 @@ public:
 template<typename T>
 inline Node<T>::Node()
 {
-	data = NULL;
+
 }
 
 template<typename T>
-inline Node<T>::Node(T value)
+inline Node<T>::Node(T value, Node* n, Node* p)
 {
 	data = value;
+	next = n;
+	previous = p;
 }
