@@ -55,10 +55,11 @@ inline const bool Iterator<T>::operator==(const Iterator<T>& iter)
 	return false;
 }
 
+//returns wether the current iterator != current node
 template<typename T>
 inline const bool Iterator<T>::operator!=(const Iterator<T>& iter)
 {
-	if (iter.current->data != current->data)
+	if (iter.current != current)
 		return true;
 
 	return false;

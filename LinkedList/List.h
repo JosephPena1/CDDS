@@ -53,7 +53,14 @@ inline List<T>::List(List<T>&)
 template<typename T>
 inline List<T>::~List()
 {
-
+	/*Node<T>* temp = m_first;
+	while (m_first)
+	{
+		delete temp->data;
+		m_first = temp->next;
+		delete temp;
+		temp = m_first;
+	}*/
 }
 
 //destroys ...?
@@ -151,7 +158,8 @@ inline bool List<T>::remove(const T& value)
 template<typename T>
 inline void List<T>::print() const
 {
-	Iterator<T> iter = Iterator<T>(m_first);
+	//Node<T>* temp = m_first.next;
+	Iterator<T> iter = Iterator<T>(m_first.next);
 	for (iter.getCurrent(); iter != m_last.next; ++iter)
 		std::cout << *iter << std::endl;
 
