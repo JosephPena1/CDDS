@@ -14,7 +14,7 @@ public:
 	const bool operator==(const Iterator<T>& iter);
 	const bool operator!=(const Iterator<T>& iter);
 	T operator*();
-	Iterator<T> getCurrent() { return current; }
+	Iterator<T> getCurrent();
 
 private:
 	Node<T>* current;
@@ -32,18 +32,19 @@ inline Iterator<T>::Iterator(Node<T>* node)
 	current = node;
 }
 
+//sets the iterators current to be the next
 template<typename T>
 inline Iterator<T> Iterator<T>::operator++()
 {
-	current = current->next;
-	return Iterator<T>();
+	return current = current->next;
+	//return Iterator<T>();
 }
 
 template<typename T>
 inline Iterator<T> Iterator<T>::operator--()
 {
-	current = current->previous;
-	return Iterator<T>();
+	return current = current->previous;
+	//return Iterator<T>();
 }
 
 template<typename T>
@@ -71,4 +72,10 @@ inline T Iterator<T>::operator*()
 {
 	//return *current;
 	return T();
+}
+
+template<typename T>
+inline Iterator<T> Iterator<T>::getCurrent()
+{
+	return current;
 }

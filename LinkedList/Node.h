@@ -19,6 +19,12 @@ inline Node<T>::Node()
 
 }
 
+/// <summary>
+/// 
+/// </summary>
+/// <param name="value">Sets data in a node to the value</param>
+/// <param name="n">Sets next in a node to the value</param>
+/// <param name="p">Sets previous in a node to the value</param>
 template<typename T>
 inline Node<T>::Node(T value, Node* n, Node* p)
 {

@@ -138,30 +138,34 @@ inline void List<T>::pushBack(const T& value)
 	}
 }
 
-//inserts the given value at the given index in the list
+//inserts the given value at the index in the list
 template<typename T>
 inline bool List<T>::insert(const T& value, int index)
 {
+	//loop through list until it reaches the index
 
 	return false;
 }
 
-//removes the given value from the list
+//Removes a given value from the list
 template<typename T>
 inline bool List<T>::remove(const T& value)
 {
+	//return true if the value was removed
+	//return false if not
+
 
 	return false;
 }
 
-//prints the contents of a linked list. (*_*)//WIP\\(*_*)
+//Prints the contents of a linked list. 
+//WIP: needs to return the data instead of the whole node
 template<typename T>
 inline void List<T>::print() const
 {
-	//Node<T>* temp = m_first.next;
 	Iterator<T> iter = Iterator<T>(m_first.next);
 	for (iter.getCurrent(); iter != m_last.next; ++iter)
-		std::cout << *iter << std::endl;
+		std::cout << *iter.current->data << std::endl;
 
 }
 
@@ -181,10 +185,21 @@ inline bool List<T>::isEmpty() const
 	return false;
 }
 
-//returns ...?
+//returns if the value wasn't found?
 template<typename T>
 inline bool List<T>::getData(Iterator<T>& iter, int index)
 {
+	//if (index != nodeCount/NULL) loop, index++
+	//for (iter.getCurrent(); index <= m_nodeCount; ++iter)
+	//{
+	//	//if the ___ matches index, return data somehow;
+	//	if ()
+	//	{
+	//		return iter.current->data;
+	//	}
+	//	index++;
+	//		
+	//}
 
 	return false;
 }
