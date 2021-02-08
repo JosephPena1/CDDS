@@ -6,6 +6,6 @@ int main()
 	testList.pushFront(3);
 	testList.pushBack(2);
 	testList.pushFront(1);
-	//testList.print();
+	testList.print();
 	return 0;
 }

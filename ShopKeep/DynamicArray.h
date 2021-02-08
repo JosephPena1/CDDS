@@ -96,13 +96,17 @@ template <typename T>
 inline void DynamicArray<T>::sortItems()
 {
 	for (int i = 0; i < getLength(); i++)
+	{
 		for (int j = getLength() - 1; j > i; j--)
+		{
 			if (m_items[j] < m_items[j - 1])
 			{
 				T temp = m_items[j];
 				m_items[j] = m_items[j - 1];
 				m_items[j - 1] = temp;
 			}
+		}
+	}	
 }
 
 template <typename T>

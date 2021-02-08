@@ -56,31 +56,36 @@ inline List<T>::~List()
 
 }
 
+//destroys ...?
 template<typename T>
 inline void List<T>::destroy()
 {
 
 }
 
+//return the first node
 template<typename T>
 inline Iterator<T> List<T>::begin()
 {
-	return Iterator<T>();
+	return Iterator<T>(m_first);
 }
 
 //return the last node's pointer
 template<typename T>
 inline Iterator<T> List<T>::end()
 {
-	return Iterator<T>();
+	return Iterator<T>(m_last.next);
 }
 
+//checks if the list contains the given value
 template<typename T>
 inline bool List<T>::contains(const T& object) const
 {
+
 	return false;
 }
 
+//pushes the given data to the front of the list
 template<typename T>
 inline const void List<T>::pushFront(const T& value)
 {
@@ -103,6 +108,7 @@ inline const void List<T>::pushFront(const T& value)
 	}
 }
 
+//pushes the given data to the back of the list
 template<typename T>
 inline void List<T>::pushBack(const T& value)
 {
@@ -125,15 +131,19 @@ inline void List<T>::pushBack(const T& value)
 	}
 }
 
+//inserts the given value at the given index in the list
 template<typename T>
 inline bool List<T>::insert(const T& value, int index)
 {
+
 	return false;
 }
 
+//removes the given value from the list
 template<typename T>
 inline bool List<T>::remove(const T& value)
 {
+
 	return false;
 }
 
@@ -141,18 +151,20 @@ inline bool List<T>::remove(const T& value)
 template<typename T>
 inline void List<T>::print() const
 {
-	/*Iterator<T> iter = Iterator<T>(m_first);
-	for (iter.current; iter.operator!=(m_last); iter.operator++)
-		std::cout << *iter << std::endl;*/
+	Iterator<T> iter = Iterator<T>(m_first);
+	for (iter.getCurrent(); iter != m_last.next; ++iter)
+		std::cout << *iter << std::endl;
 
 }
 
+//Initializes ...?
 template<typename T>
 inline void List<T>::initialize()
 {
 
 }
 
+//checks if the list is empty
 template<typename T>
 inline bool List<T>::isEmpty() const
 {
@@ -161,6 +173,7 @@ inline bool List<T>::isEmpty() const
 	return false;
 }
 
+//returns ...?
 template<typename T>
 inline bool List<T>::getData(Iterator<T>& iter, int index)
 {
@@ -168,6 +181,7 @@ inline bool List<T>::getData(Iterator<T>& iter, int index)
 	return false;
 }
 
+//
 template<typename T>
 inline const List<T>& List<T>::operator=(const List<T>& otherList)
 {
@@ -184,14 +198,20 @@ inline const List<T>& List<T>::operator=(const List<T>& otherList)
 	return *this;
 }
 
+//sorts the list from least to greater
 template<typename T>
 inline void List<T>::sort()
 {
-	/*Iterator<T> iter;
-	for (iter.current = m_first; iter != m_last; iter++)
-		for (int j = length - 1; j > i; j--)
-			if()
-			{
+	//Iterator<T> iter;
 
-			}*/
+	//for (iter.current = m_first; iter != end(); iter++)
+	//{
+	//	for (int j = end(); j > iter; j--)
+	//	{
+	//		if (iter.current < iter.current->next)
+	//		{
+	//			//swap places
+	//		}
+	//	}
+	//}
 }
