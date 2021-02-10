@@ -37,14 +37,12 @@ template<typename T>
 inline Iterator<T> Iterator<T>::operator++()
 {
 	return current = current->next;
-	//return Iterator<T>();
 }
 
 template<typename T>
 inline Iterator<T> Iterator<T>::operator--()
 {
 	return current = current->previous;
-	//return Iterator<T>();
 }
 
 template<typename T>

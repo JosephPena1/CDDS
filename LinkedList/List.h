@@ -53,28 +53,14 @@ inline List<T>::List(List<T>&)
 template<typename T>
 inline List<T>::~List()
 {
-	/*Node<T>* temp = m_first;
-	while (m_first)
-	{
-		delete temp->data;
-		m_first = temp->next;
-		delete temp;
-		temp = m_first;
-	}*/
+
 }
 
 //destroys ...?
 template<typename T>
 inline void List<T>::destroy()
 {
-	/*Node<T>* temp = m_first;
-	while (m_first)
-	{
-		delete temp->data;
-		m_first = temp->next;
-		delete temp;
-		temp = m_first;
-	}*/
+
 }
 
 //return the first node
@@ -95,6 +81,11 @@ inline Iterator<T> List<T>::end() const
 template<typename T>
 inline bool List<T>::contains(const T& object) const
 {
+	Iterator<T> iter = Iterator<T>(m_first.next);
+
+	for (iter.getCurrent(); iter != m_last.next; ++iter)
+		if (*iter == object)
+			return true;
 
 	return false;
 }
@@ -152,63 +143,106 @@ inline void List<T>::pushBack(const T& value)
 }
 
 //inserts the given value at the index in the list
+//WIP: cannot insert at first/last node, 
 template<typename T>
 inline bool List<T>::insert(const T& value, int index)
 {
+	if (index > m_nodeCount)
+		return false;
+
 	//loop through list until it reaches the index
+	int count = 0;
+	Iterator<T> iter = Iterator<T>(m_first.next);
+	Node<T>* iterNode = new Node<T>(NULL, m_first.next);
+
+	for (iter.getCurrent(); iter != m_last.next; ++iter)
+	{
+		if (count == index)
+		{
+			//put where 4 is in list
+			//set 4's previous to be new node, set 5's next to be new node
+			Node<T>* tempNode = new Node<T>(value, iterNode, iterNode->previous);
+			iterNode->previous->next = tempNode;
+			iterNode->previous = tempNode;
+			m_nodeCount++;
+			return true;
+		}
+		else
+		{
+			iterNode->previous = iterNode->previous;
+			iterNode = iterNode->next;
+			count++;
+		}
+	}
 
 	return false;
 }
 
 //Removes a given value from the list
+//WIP: doesn't like removing the first node
 template<typename T>
 inline bool List<T>::remove(const T& value)
 {
-	//creates an iterator to go through the list
 	Iterator<T> iter = Iterator<T>(m_first.next);
-
-	//creates a new node to check if data matches
 	Node<T>* tempNode = new Node<T>(NULL, m_first.next);
 
 	for (iter.getCurrent(); iter != m_last.next; ++iter)
 	{
-		if (tempNode->next->data == value)
+		if (*iter == value)
 		{
-			//Change previous and next pointers to be each other
-			tempNode->next->next->previous = tempNode->previous;
-			tempNode->next = tempNode->next->next;
+			tempNode->previous = tempNode->previous;
+			tempNode = tempNode->next;
+
+			//checks if current next is null
+			if (tempNode->next == nullptr)
+				tempNode->previous->next = nullptr;
+
+			//checks if current previous is null
+			else if (tempNode->previous == nullptr)
+				tempNode->next->previous = nullptr;
+
+			else
+			{
+				tempNode->previous->next = tempNode->next;
+				tempNode->next->previous = tempNode->previous;
+			}
+			
+			//tempNode->next = tempNode->previous;
+			//tempNode->previous->next = tempNode->next;
 
 			//delete data and node
-			tempNode->next->data = NULL;
+			tempNode->data = NULL;
 			tempNode->next = nullptr;
 			tempNode->previous = nullptr;
 			delete tempNode;
+			m_nodeCount--;
 			return true;
 		}
+
 		else
 		{
+			//sets tempNode's previous and next if value isn't found
+			tempNode->previous = tempNode->previous;
 			tempNode = tempNode->next;
 		}
 	}
 	delete tempNode;
 
 	return false;
-
-	
 }
 
 //Prints the contents of a linked list.
 template<typename T>
 inline void List<T>::print() const
 {
-	//not using begin/end because it doesn't wanna work.
+	//didn't use begin()/end() because it didn't want to work.
 	Iterator<T> iter = Iterator<T>(m_first.next);
 	for (iter.getCurrent(); iter != m_last.next; ++iter)
 	{
 		std::cout << *iter << std::endl;
 	}
 
-	std::cout << "node count: " << m_nodeCount << std::endl;
+	std::cout << "Total Nodes: " << m_nodeCount << std::endl;
 }
 
 //Initializes ...?
@@ -224,8 +258,7 @@ inline bool List<T>::isEmpty() const
 {
 	if (m_nodeCount == 0)
 		return true;
-	/*if (m_first.next == nullptr)
-		return true;*/
+
 	return false;
 }
 
@@ -233,17 +266,6 @@ inline bool List<T>::isEmpty() const
 template<typename T>
 inline bool List<T>::getData(Iterator<T>& iter, int index)
 {
-	//if (index != nodeCount/NULL) loop, index++
-	//for (iter.getCurrent(); index <= m_nodeCount; ++iter)
-	//{
-	//	//if the ___ matches index, return data somehow;
-	//	if ()
-	//	{
-	//		return iter.current->data;
-	//	}
-	//	index++;
-	//		
-	//}
 
 	return false;
 }

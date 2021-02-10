@@ -9,9 +9,12 @@ int main()
 	testList.pushBack(2);
 	testList.pushBack(1);
 	testList.print();
-	testList.remove(3);
+	system("pause");
 	system("cls");
+
+	testList.insert(6, 3);
 	testList.print();
+
 	//testList.sort();
 	//testList.print();
 	return 0;
