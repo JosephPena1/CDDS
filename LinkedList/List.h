@@ -19,8 +19,8 @@ public:
 	const void pushFront(const T& value);
 	void pushBack(const T& value);
 	bool insert(const T& value, int index);
-
 	bool remove(const T& value);
+
 	void print()const;
 	void initialize();
 	bool isEmpty() const;
@@ -67,7 +67,14 @@ inline List<T>::~List()
 template<typename T>
 inline void List<T>::destroy()
 {
-
+	/*Node<T>* temp = m_first;
+	while (m_first)
+	{
+		delete temp->data;
+		m_first = temp->next;
+		delete temp;
+		temp = m_first;
+	}*/
 }
 
 //return the first node
@@ -113,6 +120,9 @@ inline const void List<T>::pushFront(const T& value)
 		newFirst->previous = newNode;
 		m_first.next = newNode;
 	}
+
+	m_nodeCount++;
+	//std::cout << "node count: " << m_nodeCount << std::endl;
 }
 
 //pushes the given data to the back of the list
@@ -136,6 +146,9 @@ inline void List<T>::pushBack(const T& value)
 		newLast->next = newNode;
 		m_last.previous = newNode;
 	}
+
+	m_nodeCount++;
+	//std::cout << "node count: " << m_nodeCount << std::endl;
 }
 
 //inserts the given value at the index in the list
@@ -151,22 +164,52 @@ inline bool List<T>::insert(const T& value, int index)
 template<typename T>
 inline bool List<T>::remove(const T& value)
 {
-	//return true if the value was removed
-	//return false if not
+	//creates an iterator to go through the list
+	//Iterator<T> iter = Iterator<T>(m_first.next);
 
+	//creates a new node to check if data matches
+	//Node<T>* tempNode = new Node<T>(NULL, m_first.next);
 
-	return false;
+	//for (iter.getCurrent(); iter != m_last.next; ++iter)
+	//{
+	//	if (tempNode->next->data == value)
+	//	{
+	//		//delete data and node
+	//		tempNode->next->data = NULL;
+	//		tempNode->next = nullptr;
+	//		tempNode->previous = nullptr;
+	//		delete tempNode;
+	//	}
+	//	else 
+	//	{
+	//		tempNode->previous = tempNode;
+	//		tempNode = tempNode->next;
+	//	}
+	//}
+	//delete tempNode;
+
+	//return false;
 }
 
-//Prints the contents of a linked list. 
-//WIP: needs to return the data instead of the whole node
+//Prints the contents of a linked list.
 template<typename T>
 inline void List<T>::print() const
 {
+	//creates an iterator to go through the list
 	Iterator<T> iter = Iterator<T>(m_first.next);
-	for (iter.getCurrent(); iter != m_last.next; ++iter)
-		std::cout << *iter.current->data << std::endl;
+	//creates a new node to print out the data
+	Node<T>* tempNode = new Node<T>(NULL, m_first.next);
 
+	for (iter.getCurrent(); iter != m_last.next; ++iter)
+	{
+		std::cout << tempNode->next->data << std::endl;
+		tempNode->previous = tempNode;
+		tempNode = tempNode->next;
+	}
+
+	delete tempNode;
+
+	std::cout << "node count: " << m_nodeCount << std::endl;
 }
 
 //Initializes ...?
@@ -180,8 +223,10 @@ inline void List<T>::initialize()
 template<typename T>
 inline bool List<T>::isEmpty() const
 {
-	if (m_first.next == nullptr)
+	if (m_nodeCount == 0)
 		return true;
+	/*if (m_first.next == nullptr)
+		return true;*/
 	return false;
 }
 

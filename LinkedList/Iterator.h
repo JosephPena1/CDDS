@@ -15,6 +15,7 @@ public:
 	const bool operator!=(const Iterator<T>& iter);
 	T operator*();
 	Iterator<T> getCurrent();
+	T getCurrentData();
 
 private:
 	Node<T>* current;
@@ -78,4 +79,11 @@ template<typename T>
 inline Iterator<T> Iterator<T>::getCurrent()
 {
 	return current;
+}
+
+template<typename T>
+inline T Iterator<T>::getCurrentData()
+{
+
+	return current->data;
 }
