@@ -3,19 +3,26 @@
 int main()
 {
 	List<int> testList;
+	testList.pushFront(4);
+	testList.pushFront(3);
+	testList.pushFront(2);
+	testList.pushFront(1);
 	testList.pushBack(5);
-	testList.pushBack(4);
-	testList.pushBack(3);
-	testList.pushBack(2);
-	testList.pushBack(1);
+
 	testList.print();
 	system("pause");
 	system("cls");
 
-	testList.insert(6, 3);
+	int testInt = 9;
+	testList.insert(testInt, 3);
+	if (testList.contains(testInt))
+		std::cout << "There's a " << testInt << std::endl;
 	testList.print();
+	system("pause");
+	system("cls");
 
-	//testList.sort();
-	//testList.print();
+	testList.remove(4);
+	testList.print();
+	system("pause");
 	return 0;
 }

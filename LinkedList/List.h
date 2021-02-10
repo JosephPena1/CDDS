@@ -63,14 +63,14 @@ inline void List<T>::destroy()
 
 }
 
-//return the first node
+//return the first node?
 template<typename T>
 inline Iterator<T> List<T>::begin() const
 {
 	return Iterator<T>(m_first);
 }
 
-//return the last node's pointer
+//return the last node's pointer?
 template<typename T>
 inline Iterator<T> List<T>::end() const
 {
@@ -143,7 +143,6 @@ inline void List<T>::pushBack(const T& value)
 }
 
 //inserts the given value at the index in the list
-//WIP: cannot insert at first/last node, 
 template<typename T>
 inline bool List<T>::insert(const T& value, int index)
 {
@@ -197,7 +196,7 @@ inline bool List<T>::remove(const T& value)
 			if (tempNode->next == nullptr)
 				tempNode->previous->next = nullptr;
 
-			//checks if current previous is null
+			//checks if current previous is null, hard to figure out bug.
 			else if (tempNode->previous == nullptr)
 				tempNode->next->previous = nullptr;
 
@@ -206,9 +205,6 @@ inline bool List<T>::remove(const T& value)
 				tempNode->previous->next = tempNode->next;
 				tempNode->next->previous = tempNode->previous;
 			}
-			
-			//tempNode->next = tempNode->previous;
-			//tempNode->previous->next = tempNode->next;
 
 			//delete data and node
 			tempNode->data = NULL;
@@ -237,10 +233,9 @@ inline void List<T>::print() const
 {
 	//didn't use begin()/end() because it didn't want to work.
 	Iterator<T> iter = Iterator<T>(m_first.next);
+
 	for (iter.getCurrent(); iter != m_last.next; ++iter)
-	{
 		std::cout << *iter << std::endl;
-	}
 
 	std::cout << "Total Nodes: " << m_nodeCount << std::endl;
 }
@@ -270,7 +265,7 @@ inline bool List<T>::getData(Iterator<T>& iter, int index)
 	return false;
 }
 
-//
+
 template<typename T>
 inline const List<T>& List<T>::operator=(const List<T>& otherList)
 {
@@ -288,19 +283,45 @@ inline const List<T>& List<T>::operator=(const List<T>& otherList)
 }
 
 //sorts the list from least to greater
+//Very WIP: pretty sure I'm doing this wrong
 template<typename T>
 inline void List<T>::sort()
 {
-	//Iterator<T> iter;
+	Iterator<T> iter = Iterator<T>(m_first.next);
+	Node<T>* tempNode = new Node<T>(NULL, m_first.next);
+	Node<T>* tempNode2 = new Node<T>(NULL, m_first.next->next);
 
-	//for (iter.current = m_first; iter != end(); iter++)
-	//{
-	//	for (int j = end(); j > iter; j--)
-	//	{
-	//		if (iter.current < iter.current->next)
-	//		{
-	//			//swap places
-	//		}
-	//	}
-	//}
+	for (iter.getCurrent(); iter != m_last.next; ++iter)
+	{
+		for (int j = 0; j < m_nodeCount; j++)
+		{
+			if (tempNode2->next == nullptr)
+				break;
+
+			if (*iter > tempNode2->next->data)
+			{
+				//swaps data
+				T temp = tempNode->next->data;
+				tempNode->next->data = tempNode2->next->data;
+				tempNode2->next->data = temp;
+
+				//iterates nodes
+				tempNode->previous = tempNode->previous;
+				tempNode = tempNode->next;
+
+				tempNode2->previous = tempNode2->previous;
+				tempNode2 = tempNode2->next;
+			}
+
+			else
+			{
+				//iterates nodes
+				tempNode->previous = tempNode->previous;
+				tempNode = tempNode->next;
+
+				tempNode2->previous = tempNode2->previous;
+				tempNode2 = tempNode2->next;
+			}
+		}
+	}
 }
