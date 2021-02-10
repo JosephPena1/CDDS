@@ -12,8 +12,8 @@ public:
 	List<T>(List<T>&);
 	~List<T>();
 	void destroy();
-	Iterator<T> begin();
-	Iterator<T> end();
+	Iterator<T> begin() const;
+	Iterator<T> end() const;
 
 	bool contains(const T& object) const;
 	const void pushFront(const T& value);
@@ -79,14 +79,14 @@ inline void List<T>::destroy()
 
 //return the first node
 template<typename T>
-inline Iterator<T> List<T>::begin()
+inline Iterator<T> List<T>::begin() const
 {
 	return Iterator<T>(m_first);
 }
 
 //return the last node's pointer
 template<typename T>
-inline Iterator<T> List<T>::end()
+inline Iterator<T> List<T>::end() const
 {
 	return Iterator<T>(m_last.next);
 }
@@ -165,49 +165,48 @@ template<typename T>
 inline bool List<T>::remove(const T& value)
 {
 	//creates an iterator to go through the list
-	//Iterator<T> iter = Iterator<T>(m_first.next);
+	Iterator<T> iter = Iterator<T>(m_first.next);
 
 	//creates a new node to check if data matches
-	//Node<T>* tempNode = new Node<T>(NULL, m_first.next);
+	Node<T>* tempNode = new Node<T>(NULL, m_first.next);
 
-	//for (iter.getCurrent(); iter != m_last.next; ++iter)
-	//{
-	//	if (tempNode->next->data == value)
-	//	{
-	//		//delete data and node
-	//		tempNode->next->data = NULL;
-	//		tempNode->next = nullptr;
-	//		tempNode->previous = nullptr;
-	//		delete tempNode;
-	//	}
-	//	else 
-	//	{
-	//		tempNode->previous = tempNode;
-	//		tempNode = tempNode->next;
-	//	}
-	//}
-	//delete tempNode;
+	for (iter.getCurrent(); iter != m_last.next; ++iter)
+	{
+		if (tempNode->next->data == value)
+		{
+			//Change previous and next pointers to be each other
+			tempNode->next->next->previous = tempNode->previous;
+			tempNode->next = tempNode->next->next;
 
-	//return false;
+			//delete data and node
+			tempNode->next->data = NULL;
+			tempNode->next = nullptr;
+			tempNode->previous = nullptr;
+			delete tempNode;
+			return true;
+		}
+		else
+		{
+			tempNode = tempNode->next;
+		}
+	}
+	delete tempNode;
+
+	return false;
+
+	
 }
 
 //Prints the contents of a linked list.
 template<typename T>
 inline void List<T>::print() const
 {
-	//creates an iterator to go through the list
+	//not using begin/end because it doesn't wanna work.
 	Iterator<T> iter = Iterator<T>(m_first.next);
-	//creates a new node to print out the data
-	Node<T>* tempNode = new Node<T>(NULL, m_first.next);
-
 	for (iter.getCurrent(); iter != m_last.next; ++iter)
 	{
-		std::cout << tempNode->next->data << std::endl;
-		tempNode->previous = tempNode;
-		tempNode = tempNode->next;
+		std::cout << *iter << std::endl;
 	}
-
-	delete tempNode;
 
 	std::cout << "node count: " << m_nodeCount << std::endl;
 }
